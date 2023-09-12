@@ -1,6 +1,7 @@
 [versions]
 androidx-junit = "1.1.5"
 appcompat = "1.6.1"
+coil = "2.4.0"
 core-ktx = "1.10.1"
 espresso-core = "3.5.1"
 fragmentKtx = "1.6.1"
@@ -26,6 +27,7 @@ androidx-junit = { module = "androidx.test.ext:junit", version.ref = "androidx-j
 androidx-lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycle" }
 androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle" }
 androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
+coil = { module = "io.coil-kt:coil", version.ref = "coil" }
 junit = { module = "junit:junit", version.ref = "junit" }
 androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
 material = { module = "com.google.android.material:material", version.ref = "material" }

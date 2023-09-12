@@ -10,10 +10,9 @@ open class PokemonMapper @Inject constructor() : Mapper<PokemonEntity, Pokemon, 
         return Pokemon(type.pokemonId, type.name, type.imageUrl, type.isFavorite)
     }
 
-    override fun mapModelToEntity(type: Pokemon): PokemonEntity {
+    override fun mapDomainToEntity(type: Pokemon): PokemonEntity {
         return PokemonEntity(type.id, type.name, type.imageUrl, type.isFavorite)
     }
-
 
     override fun mapResponseToEntity(type: PokemonResponse): PokemonEntity {
         return PokemonEntity(

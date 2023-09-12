@@ -6,4 +6,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface IPokemonRepository {
     fun getAllPokemon(): Flow<Resource<List<Pokemon>>>
+    fun getFavouritePokemon(): Flow<List<Pokemon>>
+    fun setFavoritePokemon(pokemon: Pokemon, isFavorite: Boolean)
 }

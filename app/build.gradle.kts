@@ -35,6 +35,9 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -54,4 +57,6 @@ dependencies {
     // dagger-hilt
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
+    // coil
+    implementation(libs.coil)
 }
