@@ -30,4 +30,8 @@
     </style>
 
     <style name="Theme.Pokepedia" parent="Base.Theme.Pokepedia" />
+
+    <style name="ToolbarNavigationIcon" parent="Theme.Pokepedia">
+        <item name="android:textColorSecondary">@color/md_theme_light_onPrimary</item>
+    </style>
 </resources>

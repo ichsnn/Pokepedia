@@ -1,50 +1,74 @@
 package com.ichsnn.pokepedia
 
+import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
+import android.view.MenuItem
 import android.widget.Toast
-import androidx.activity.viewModels
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.ichsnn.core.data.Resource
-import com.ichsnn.pokepedia.adapter.PokemonAdapter
+import androidx.core.view.GravityCompat
+import androidx.fragment.app.Fragment
+import com.google.android.material.navigation.NavigationView
 import com.ichsnn.pokepedia.databinding.ActivityMainBinding
+import com.ichsnn.pokepedia.presentation.home.HomeFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
-    private val mainViewModel: MainViewModel by viewModels()
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+    private var _binding: ActivityMainBinding? = null
+    private val binding get() = _binding!!
 
-    private lateinit var binding: ActivityMainBinding
-
+    @SuppressLint("CommitTransaction")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val pokemonAdapter = PokemonAdapter()
 
-        mainViewModel.pokemon.observe(this) { listPokemon ->
-            if (listPokemon != null) {
-                when (listPokemon) {
-                    is Resource.Error -> {
-                        Toast.makeText(this, listPokemon.message.toString(), Toast.LENGTH_SHORT)
-                    }
+        setSupportActionBar(binding.mainAppBar.toolbar)
+        val toggle = ActionBarDrawerToggle(
+            this,
+            binding.drawerLayout,
+            binding.mainAppBar.toolbar,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close
+        )
+        binding.drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
 
-                    is Resource.Loading -> {}
-                    is Resource.Success -> {
-                        Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
-                        Log.d("Success", "${listPokemon.data}")
-                        pokemonAdapter.setData(listPokemon.data)
-                    }
-                }
+        binding.navView.setCheckedItem(R.id.nav_home)
+        binding.navView.setNavigationItemSelectedListener(this)
+
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.nav_host_fragment, HomeFragment())
+                .commit()
+            supportActionBar?.title = getString(R.string.app_name)
+        }
+    }
+
+    @SuppressLint("CommitTransaction")
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        var fragment: Fragment? = null
+        var title = getString(R.string.app_name)
+        when (item.itemId) {
+            R.id.nav_home -> {
+                fragment = HomeFragment()
+                title = getString(R.string.app_name)
+            }
+
+            R.id.nav_favorite -> {
+                Toast.makeText(this, "Coming soon!", Toast.LENGTH_SHORT).show()
             }
         }
-
-        with(binding.rvMain) {
-            layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
-            adapter = pokemonAdapter
+        if (fragment != null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.nav_host_fragment, fragment)
+                .commit()
         }
+        supportActionBar?.title = title
+
+        binding.drawerLayout.closeDrawer(GravityCompat.START)
+        return true
     }
 }

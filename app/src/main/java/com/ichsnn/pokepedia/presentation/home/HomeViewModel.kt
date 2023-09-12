@@ -1,4 +1,4 @@
-package com.ichsnn.pokepedia
+package com.ichsnn.pokepedia.presentation.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
@@ -7,6 +7,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(pokemonRepository: PokemonRepository) : ViewModel() {
+class HomeViewModel @Inject constructor(pokemonRepository: PokemonRepository) :
+    ViewModel() {
     val pokemon = pokemonRepository.getAllPokemon().asLiveData()
 }
