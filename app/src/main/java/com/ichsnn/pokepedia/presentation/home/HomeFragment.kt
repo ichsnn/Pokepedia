@@ -4,13 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.ichsnn.core.data.Resource
+import com.ichsnn.pokepedia.R
 import com.ichsnn.pokepedia.adapter.PokemonAdapter
 import com.ichsnn.pokepedia.databinding.FragmentHomeBinding
 import com.ichsnn.pokepedia.utils.GridSpacingItemDecoration
@@ -40,20 +39,22 @@ class HomeFragment : Fragment() {
             homeViewModel.pokemon.observe(viewLifecycleOwner) { listPokemon ->
                 if (listPokemon != null) {
                     when (listPokemon) {
-                        is Resource.Error -> {
-                            Toast.makeText(
-                                activity,
-                                listPokemon.message.toString(),
-                                Toast.LENGTH_SHORT
-                            ).show()
+                        is Resource.Loading -> {
+                            binding.progressBar.visibility = View.VISIBLE
                         }
 
-                        is Resource.Loading -> {
-                            binding.progressBar.visibility = ProgressBar.VISIBLE
+                        is Resource.Error -> {
+                            binding.progressBar.visibility = View.GONE
+                            binding.viewError.root.visibility = View.VISIBLE
+                            binding.viewError.tvErrorMessage.text =
+                                listPokemon.message ?: getString(
+                                    R.string.error_something_wrong
+                                )
                         }
+
 
                         is Resource.Success -> {
-                            binding.progressBar.visibility = ProgressBar.GONE
+                            binding.progressBar.visibility = View.GONE
                             pokemonAdapter.setData(listPokemon.data)
                         }
                     }

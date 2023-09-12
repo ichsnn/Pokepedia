@@ -1,0 +1,11 @@
+package com.ichsnn.core.domain.usecase
+
+import com.ichsnn.core.data.Resource
+import com.ichsnn.core.domain.model.Pokemon
+import kotlinx.coroutines.flow.Flow
+
+interface PokemonUseCase {
+    fun getAllPokemon(): Flow<Resource<List<Pokemon>>>
+    fun getFavoritePokemon(): Flow<List<Pokemon>>
+    fun setFavoritePokemon(pokemon: Pokemon, isFavorite: Boolean)
+}
