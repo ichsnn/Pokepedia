@@ -5,7 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import coil.ImageLoader
+import coil.disk.DiskCache
 import coil.load
+import coil.memory.MemoryCache
 import com.ichsnn.core.domain.model.Pokemon
 import com.ichsnn.pokepedia.R
 import com.ichsnn.pokepedia.databinding.PokemonListItemBinding
@@ -45,8 +48,17 @@ class PokemonAdapter : RecyclerView.Adapter<PokemonAdapter.ListViewHolder>() {
         }
 
         fun bind(data: Pokemon) {
+            val imageLoader = ImageLoader.Builder(itemView.context).memoryCache {
+                MemoryCache.Builder(itemView.context).maxSizePercent(0.25).build()
+            }.diskCache {
+                DiskCache.Builder()
+                    .directory(itemView.context.cacheDir.resolve("image_cache"))
+                    .maxSizePercent(0.25)
+                    .build()
+            }.build()
+
             with(binding) {
-                ivPokemonImage.load(data.imageUrl) {
+                ivPokemonImage.load(data.imageUrl, imageLoader) {
                     crossfade(true)
                     placeholder(R.drawable.ic_pokeball_primary)
                 }
