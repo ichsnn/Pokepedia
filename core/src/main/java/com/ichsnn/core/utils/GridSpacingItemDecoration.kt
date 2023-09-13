@@ -1,4 +1,4 @@
-package com.ichsnn.pokepedia.utils
+package com.ichsnn.core.utils
 
 import android.graphics.Rect
 import android.view.View

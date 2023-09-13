@@ -7,14 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
+import com.ichsnn.core.adapter.PokemonAdapter
 import com.ichsnn.core.data.Resource
+import com.ichsnn.core.utils.GridSpacingItemDecoration
 import com.ichsnn.pokepedia.R
-import com.ichsnn.pokepedia.adapter.PokemonAdapter
 import com.ichsnn.pokepedia.databinding.FragmentHomeBinding
 import com.ichsnn.pokepedia.presentation.detail.DetailActivity
-import com.ichsnn.pokepedia.utils.GridSpacingItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -70,7 +69,7 @@ class HomeFragment : Fragment() {
 
             val recyclerView = binding.rvHome
             with(recyclerView) {
-                layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
+                layoutManager = GridLayoutManager(requireContext(), 2)
                 adapter = pokemonAdapter
             }
             recyclerView.addItemDecoration(GridSpacingItemDecoration(2, 24, true, 0, false))

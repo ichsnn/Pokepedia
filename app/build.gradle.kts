@@ -38,6 +38,7 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    dynamicFeatures += setOf(":favorite")
 }
 
 dependencies {
@@ -57,6 +58,6 @@ dependencies {
     // dagger-hilt
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
-    // coil
-    implementation(libs.coil)
+    // glide
+    implementation(libs.glide)
 }

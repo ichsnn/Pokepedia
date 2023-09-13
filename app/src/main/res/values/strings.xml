@@ -10,4 +10,5 @@
     <string name="error_something_wrong">Error: Something wrong!</string>
     <string name="back">back</string>
     <string name="pokemon_name">Pokemon Name</string>
+    <string name="title_favorite">Favorite</string>
 </resources>

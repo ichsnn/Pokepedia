@@ -16,3 +16,4 @@ dependencyResolutionManagement {
 rootProject.name = "Pokepedia"
 include(":app")
 include(":core")
+include(":favorite")

@@ -1,18 +1,15 @@
-package com.ichsnn.pokepedia.adapter
+package com.ichsnn.core.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import coil.ImageLoader
-import coil.disk.DiskCache
-import coil.load
-import coil.memory.MemoryCache
+import com.bumptech.glide.Glide
+import com.ichsnn.core.R
+import com.ichsnn.core.databinding.PokemonListItemBinding
 import com.ichsnn.core.domain.model.Pokemon
-import com.ichsnn.pokepedia.R
-import com.ichsnn.pokepedia.databinding.PokemonListItemBinding
-import com.ichsnn.pokepedia.utils.Format
+import com.ichsnn.core.utils.Format
 
 class PokemonAdapter : RecyclerView.Adapter<PokemonAdapter.ListViewHolder>() {
     private val listData = mutableListOf<Pokemon>()
@@ -48,20 +45,11 @@ class PokemonAdapter : RecyclerView.Adapter<PokemonAdapter.ListViewHolder>() {
         }
 
         fun bind(data: Pokemon) {
-            val imageLoader = ImageLoader.Builder(itemView.context).memoryCache {
-                MemoryCache.Builder(itemView.context).maxSizePercent(0.25).build()
-            }.diskCache {
-                DiskCache.Builder()
-                    .directory(itemView.context.cacheDir.resolve("image_cache"))
-                    .maxSizePercent(0.25)
-                    .build()
-            }.build()
-
             with(binding) {
-                ivPokemonImage.load(data.imageUrl, imageLoader) {
-                    crossfade(true)
-                    placeholder(R.drawable.ic_pokeball_primary)
-                }
+                Glide.with(itemView)
+                    .load(data.imageUrl)
+                    .placeholder(R.drawable.ic_pokeball_primary)
+                    .into(ivPokemonImage)
                 tvName.text = Format.sentenceCapital(data.name)
                 tvPokemonId.text = Format.pokemonIdToString(data.id)
             }

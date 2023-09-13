@@ -5,14 +5,11 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import coil.ImageLoader
-import coil.disk.DiskCache
-import coil.load
-import coil.memory.MemoryCache
+import com.bumptech.glide.Glide
 import com.ichsnn.core.data.Resource
+import com.ichsnn.core.utils.Format
 import com.ichsnn.pokepedia.R
 import com.ichsnn.pokepedia.databinding.ActivityDetailBinding
-import com.ichsnn.pokepedia.utils.Format
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -48,18 +45,10 @@ class DetailActivity : AppCompatActivity() {
 
                 is Resource.Success -> {
                     resource.data?.let { pokemon ->
-                        val imageLoader = ImageLoader.Builder(this).memoryCache {
-                            MemoryCache.Builder(this).maxSizePercent(0.25).build()
-                        }.diskCache {
-                            DiskCache.Builder()
-                                .directory(this.cacheDir.resolve("image_cache"))
-                                .maxSizePercent(0.25)
-                                .build()
-                        }.build()
 
                         binding.favoriteAction.setImageDrawable(setFavoriteIcon(pokemon.isFavorite))
                         binding.progressBar.visibility = View.GONE
-                        binding.ivPokemonImage.load(pokemon.imageUrl, imageLoader)
+                        Glide.with(this).load(pokemon.imageUrl).into(binding.ivPokemonImage)
                         binding.tvDescription.text = pokemon.description
                         binding.tvName.text = Format.sentenceCapital(pokemon.name)
                         binding.tvPokemonId.text = Format.pokemonIdToString(pokemon.id)

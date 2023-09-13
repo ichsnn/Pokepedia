@@ -1,4 +1,4 @@
-package com.ichsnn.pokepedia.utils
+package com.ichsnn.core.utils
 
 object Format {
     fun pokemonIdToString(pokemonId: Int): String = String.format("#%04d", pokemonId)

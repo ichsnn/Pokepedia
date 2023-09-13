@@ -1,20 +1,17 @@
 plugins {
-    alias(libs.plugins.com.android.library)
+    alias(libs.plugins.com.android.dynamic.feature)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kapt)
-    alias(libs.plugins.ksp)
     alias(libs.plugins.dagger.hilt.android)
 }
 
 android {
-    namespace = "com.ichsnn.core"
+    namespace = "com.ichsnn.pokepedia.favorite"
     compileSdk = 33
 
     defaultConfig {
         minSdk = 24
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -39,28 +36,21 @@ android {
 }
 
 dependencies {
+    implementation(project(":app"))
+    implementation(project(":core"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
+    implementation(libs.androidx.constraintlayout)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    // viewmodel
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.fragment.ktx)
     // dagger-hilt
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
-    // room
-    implementation(libs.room.runtime)
-    implementation(libs.androidx.room.ktx)
-    ksp(libs.room.compiler)
-    // retrofit
-    implementation(libs.retrofit)
-    implementation(libs.converter.gson)
-    implementation(libs.okhttp)
-    implementation(libs.logging.interceptor)
-    // coroutines
-    implementation(libs.kotlinx.coroutines.core)
-    implementation(libs.kotlinx.coroutines.android)
-    // glide
-    implementation(libs.glide)
-
 }

@@ -2,10 +2,10 @@
 androidx-junit = "1.1.5"
 androidx-material = "1.5.1"
 appcompat = "1.6.1"
-coil = "2.4.0"
 core-ktx = "1.10.1"
 espresso-core = "3.5.1"
 fragmentKtx = "1.6.1"
+glide = "4.14.2"
 junit = "4.13.2"
 constraintlayout = "2.1.4"
 kotlinxCoroutines = "1.7.1"
@@ -18,6 +18,7 @@ retrofit = "2.9.0"
 room = "2.5.2"
 daggerHiltAndroid = "2.48"
 ksp = "1.9.0-1.0.13"
+annotation = "1.7.0"
 
 [libraries]
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
@@ -28,7 +29,7 @@ androidx-junit = { module = "androidx.test.ext:junit", version.ref = "androidx-j
 androidx-lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycle" }
 androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle" }
 androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
-coil = { module = "io.coil-kt:coil", version.ref = "coil" }
+glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 junit = { module = "junit:junit", version.ref = "junit" }
 androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
@@ -47,6 +48,7 @@ androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 # hilt
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "daggerHiltAndroid" }
 hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "daggerHiltAndroid" }
+annotation = { group = "androidx.annotation", name = "annotation", version.ref = "annotation" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
@@ -55,3 +57,4 @@ com-android-library = { id = "com.android.library", version.ref = "androidGradle
 kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 dagger-hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "daggerHiltAndroid" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+com-android-dynamic-feature = { id = "com.android.dynamic-feature", version.ref = "androidGradlePlugin" }

@@ -1,0 +1,5 @@
+<resources>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="there_is_no_favorite_pokemon_yet">There is no favorite pokemon yet</string>
+</resources>
