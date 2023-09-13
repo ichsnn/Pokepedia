@@ -16,6 +16,9 @@ data class PokemonEntity(
     @ColumnInfo(name = "image_url")
     var imageUrl: String,
 
+    @ColumnInfo(name = "description")
+    var description: String = "",
+
     @ColumnInfo(name = "is_favorite")
     var isFavorite: Boolean = false
 )

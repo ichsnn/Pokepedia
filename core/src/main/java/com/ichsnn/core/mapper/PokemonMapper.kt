@@ -7,11 +7,23 @@ import javax.inject.Inject
 
 open class PokemonMapper @Inject constructor() : Mapper<PokemonEntity, Pokemon, PokemonResponse> {
     override fun mapEntityToDomain(type: PokemonEntity): Pokemon {
-        return Pokemon(type.pokemonId, type.name, type.imageUrl, type.isFavorite)
+        return Pokemon(
+            id = type.pokemonId,
+            name = type.name,
+            imageUrl = type.imageUrl,
+            description = type.description,
+            isFavorite = type.isFavorite
+        )
     }
 
     override fun mapDomainToEntity(type: Pokemon): PokemonEntity {
-        return PokemonEntity(type.id, type.name, type.imageUrl, type.isFavorite)
+        return PokemonEntity(
+            type.id,
+            name = type.name,
+            imageUrl = type.imageUrl,
+            description = type.description,
+            isFavorite = type.isFavorite
+        )
     }
 
     override fun mapResponseToEntity(type: PokemonResponse): PokemonEntity {
@@ -19,6 +31,7 @@ open class PokemonMapper @Inject constructor() : Mapper<PokemonEntity, Pokemon, 
             pokemonId = type.id,
             name = type.name,
             imageUrl = type.sprites.frontDefault.toString(),
+            description = "",
             isFavorite = false
         )
     }

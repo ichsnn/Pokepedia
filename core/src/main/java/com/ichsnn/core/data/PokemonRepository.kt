@@ -4,6 +4,7 @@ import com.ichsnn.core.data.source.local.LocalDataSource
 import com.ichsnn.core.data.source.remote.RemoteDataSource
 import com.ichsnn.core.data.source.remote.network.ApiResponse
 import com.ichsnn.core.data.source.remote.response.PokemonResponse
+import com.ichsnn.core.data.source.remote.response.PokemonSpeciesResponse
 import com.ichsnn.core.domain.model.Pokemon
 import com.ichsnn.core.domain.repository.IPokemonRepository
 import com.ichsnn.core.executor.AppExecutor
@@ -76,6 +77,45 @@ class PokemonRepository @Inject constructor(
             }
 
             override fun shouldFetch(data: List<Pokemon>?): Boolean = data.isNullOrEmpty()
+
+        }.asFlow()
+
+    override fun getPokemonSpecies(id: String): Flow<Resource<Pokemon>> =
+        object : NetworkBoundResource<Pokemon, PokemonSpeciesResponse>() {
+            override fun loadFromDB(): Flow<Pokemon> {
+                return localDataSource.getPokemonByName(id).map {
+                    pokemonMapper.mapEntityToDomain(it)
+                }
+            }
+
+            override suspend fun createCall(): Flow<ApiResponse<PokemonSpeciesResponse>> = flow {
+                when (val response = remoteDataSource.getPokemonSpecies(id).first()) {
+                    is ApiResponse.Empty -> {
+                        emit(ApiResponse.Empty)
+                    }
+
+                    is ApiResponse.Error -> {
+                        emit(ApiResponse.Error(response.errorMessage))
+                    }
+
+                    is ApiResponse.Success -> {
+                        emit(ApiResponse.Success(response.data))
+                    }
+                }
+            }
+
+            override suspend fun saveCallResult(data: PokemonSpeciesResponse) {
+                val englishFlavorText =
+                    data.flavorTextEntries?.filter { it?.language?.name == "en" }
+                val description = englishFlavorText?.take(5)?.map {
+                    it?.flavorText?.replace("\n", " ")
+                }?.joinToString() ?: ""
+                localDataSource.updatePokemonDescriptionByName(id, description)
+            }
+
+            override fun shouldFetch(data: Pokemon?): Boolean {
+                return data?.description.isNullOrEmpty()
+            }
 
         }.asFlow()
 

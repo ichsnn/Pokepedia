@@ -5,6 +5,7 @@ import com.ichsnn.core.data.source.remote.network.ApiResponse
 import com.ichsnn.core.data.source.remote.network.ApiService
 import com.ichsnn.core.data.source.remote.response.ListPokemonItemResponse
 import com.ichsnn.core.data.source.remote.response.PokemonResponse
+import com.ichsnn.core.data.source.remote.response.PokemonSpeciesResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -37,6 +38,17 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
             try {
                 val pokemon = apiService.getPokemon(id)
                 emit(ApiResponse.Success(pokemon))
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    suspend fun getPokemonSpecies(id: String): Flow<ApiResponse<PokemonSpeciesResponse>> {
+        return flow {
+            try {
+                val pokemonSpecies = apiService.getPokemonSpecies(id)
+                emit(ApiResponse.Success(pokemonSpecies))
             } catch (e: Exception) {
                 emit(ApiResponse.Error(e.toString()))
             }

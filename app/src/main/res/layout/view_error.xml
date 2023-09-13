@@ -14,5 +14,5 @@
         android:textAlignment="center"
         android:textColor="?attr/colorError"
         android:textSize="18sp"
-        tools:text="@string/app_name" />
+        tools:text="@string/error_something_wrong" />
 </RelativeLayout>

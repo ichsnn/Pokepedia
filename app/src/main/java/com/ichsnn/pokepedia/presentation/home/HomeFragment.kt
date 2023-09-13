@@ -1,5 +1,6 @@
 package com.ichsnn.pokepedia.presentation.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import com.ichsnn.core.data.Resource
 import com.ichsnn.pokepedia.R
 import com.ichsnn.pokepedia.adapter.PokemonAdapter
 import com.ichsnn.pokepedia.databinding.FragmentHomeBinding
+import com.ichsnn.pokepedia.presentation.detail.DetailActivity
 import com.ichsnn.pokepedia.utils.GridSpacingItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -36,6 +38,11 @@ class HomeFragment : Fragment() {
 
         if (activity != null) {
             val pokemonAdapter = PokemonAdapter()
+            pokemonAdapter.onItemClick = { selectedPokemon ->
+                val intent = Intent(activity, DetailActivity::class.java)
+                intent.putExtra(DetailActivity.POKEMON_NAME, selectedPokemon.name)
+                startActivity(intent)
+            }
             homeViewModel.pokemon.observe(viewLifecycleOwner) { listPokemon ->
                 if (listPokemon != null) {
                     when (listPokemon) {

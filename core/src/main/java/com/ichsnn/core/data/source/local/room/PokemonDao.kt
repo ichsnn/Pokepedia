@@ -16,8 +16,14 @@ interface PokemonDao {
     @Query("SELECT * FROM pokemon WHERE is_favorite = 1")
     fun getFavoritePokemon(): Flow<List<PokemonEntity>>
 
+    @Query("SELECT * FROM pokemon WHERE name = :name")
+    fun getPokemonByName(name: String): Flow<PokemonEntity>
+
     @Update
     fun updateFavoritePokemon(pokemonEntity: PokemonEntity)
+
+    @Query("UPDATE pokemon SET description = :newDescription WHERE name = :name")
+    suspend fun updateDescriptionPokemonByName(name: String, newDescription: String)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertPokemon(data: List<PokemonEntity>)
