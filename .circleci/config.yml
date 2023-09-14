@@ -10,7 +10,7 @@ jobs:
         tag: 2021.10.1
     steps:
       - checkout
-      - change-java-version:
+      - android/change-java-version:
           java-version: 17
       - restore_cache:
           key: android-orb-v1-
