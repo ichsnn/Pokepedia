@@ -7,12 +7,9 @@ jobs:
   build:
     executor: 
         name: android/android-machine
-        tag: 2021.10.1
+        tag: 2023.06.1"
     steps:
       - checkout
-      - run: 
-          name: Install Update Alternatives command
-          command: sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/java-17-openjdk-amd64/bin/java 1
       - android/change-java-version:
           java-version: 17
       - restore_cache:
