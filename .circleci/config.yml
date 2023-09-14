@@ -10,8 +10,8 @@ jobs:
         tag: 2021.10.1
     steps:
       - checkout
-      - android/install-jdk:
-          version: "17"
+      - change-java-version:
+          java-version: 17
       - restore_cache:
           key: android-orb-v1-
       - run:
