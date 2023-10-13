@@ -11,4 +11,7 @@
     <string name="back">back</string>
     <string name="pokemon_name">Pokemon Name</string>
     <string name="title_favorite">Favorite</string>
+    <string name="find_pokemon">Find Pokemon</string>
+    <string name="pokemon_not_found">Pokemon Not Found!</string>
+    <string name="pokepedia_banner">Pokepedia Banner</string>
 </resources>

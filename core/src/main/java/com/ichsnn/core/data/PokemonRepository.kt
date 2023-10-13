@@ -119,6 +119,42 @@ class PokemonRepository @Inject constructor(
 
         }.asFlow()
 
+    override fun searchPokemon(name: String): Flow<Resource<Pokemon>> =
+        object : NetworkBoundResource<Pokemon, PokemonResponse>() {
+            override fun loadFromDB(): Flow<Pokemon> {
+                return localDataSource.getPokemonByName(name).map {
+                    pokemonMapper.mapEntityToDomain(it)
+                }
+            }
+
+            override suspend fun createCall(): Flow<ApiResponse<PokemonResponse>> = flow {
+                remoteDataSource.getPokemon(name).collect { response ->
+                    when (response) {
+                        is ApiResponse.Empty -> {
+                            emit(ApiResponse.Empty)
+                        }
+
+                        is ApiResponse.Error -> {
+                            emit(ApiResponse.Error(response.errorMessage))
+                        }
+
+                        is ApiResponse.Success -> {
+                            emit(ApiResponse.Success(response.data))
+                        }
+                    }
+                }
+            }
+
+            override suspend fun saveCallResult(data: PokemonResponse) {
+                val pokemon = pokemonMapper.mapResponseToEntity(data)
+                pokemon.isSearched = true
+                localDataSource.addPokemon(pokemon)
+            }
+
+            override fun shouldFetch(data: Pokemon?): Boolean = true
+
+        }.asFlow()
+
     override fun getFavouritePokemon(): Flow<List<Pokemon>> {
         return localDataSource.getFavoritePokemon().map { listPokemon ->
             listPokemon.map {

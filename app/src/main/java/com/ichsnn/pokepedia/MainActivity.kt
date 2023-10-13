@@ -1,7 +1,9 @@
 package com.ichsnn.pokepedia
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -10,6 +12,7 @@ import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
 import com.ichsnn.pokepedia.databinding.ActivityMainBinding
+import com.ichsnn.pokepedia.presentation.findpokemon.FindPokemonActivity
 import com.ichsnn.pokepedia.presentation.home.HomeFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,7 +26,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
 
         setSupportActionBar(binding.mainAppBar.toolbar)
         val toggle = ActionBarDrawerToggle(
@@ -45,6 +47,20 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 .commit()
             supportActionBar?.title = getString(R.string.app_name)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_find_pokemon, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.find_pokemon -> {
+                startActivity(Intent(this, FindPokemonActivity::class.java))
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     @SuppressLint("CommitTransaction")
@@ -76,5 +92,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         binding.drawerLayout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

@@ -20,5 +20,8 @@ data class PokemonEntity(
     var description: String = "",
 
     @ColumnInfo(name = "is_favorite")
-    var isFavorite: Boolean = false
+    var isFavorite: Boolean = false,
+
+    @ColumnInfo(name = "is_searched")
+    var isSearched: Boolean = false
 )

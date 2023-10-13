@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface PokemonDao {
-    @Query("SELECT * FROM pokemon")
+    @Query("SELECT * FROM pokemon WHERE is_searched = 0")
     fun getAllPokemon(): Flow<List<PokemonEntity>>
 
     @Query("SELECT * FROM pokemon WHERE is_favorite = 1")
@@ -27,4 +27,7 @@ interface PokemonDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertPokemon(data: List<PokemonEntity>)
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun addPokemon(data: PokemonEntity)
 }

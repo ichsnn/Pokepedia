@@ -23,4 +23,5 @@ class LocalDataSource @Inject constructor(private val pokemonDao: PokemonDao) {
         pokemonDao.updateDescriptionPokemonByName(name, description)
 
     suspend fun insertPokemon(data: List<PokemonEntity>) = pokemonDao.insertPokemon(data)
+    suspend fun addPokemon(data: PokemonEntity) = pokemonDao.addPokemon(data)
 }

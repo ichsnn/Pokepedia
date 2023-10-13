@@ -4,13 +4,14 @@ import com.ichsnn.core.data.source.remote.network.ApiResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 
 abstract class NetworkBoundResource<ResultType, RequestType> {
     private var result: Flow<Resource<ResultType>> = flow {
         emit(Resource.Loading())
-        val dbSource = loadFromDB().first()
+        val dbSource = loadFromDB().firstOrNull()
         if (shouldFetch(dbSource)) {
             emit(Resource.Loading())
             when (val apiResponse = createCall().first()) {

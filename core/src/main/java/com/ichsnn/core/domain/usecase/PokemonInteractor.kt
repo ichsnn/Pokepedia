@@ -14,6 +14,8 @@ class PokemonInteractor @Inject constructor(private val repository: IPokemonRepo
         repository.getPokemonSpecies(name)
 
     override fun getFavoritePokemon(): Flow<List<Pokemon>> = repository.getFavouritePokemon()
+    override fun searchPokemon(name: String): Flow<Resource<Pokemon>> =
+        repository.searchPokemon(name)
 
     override fun setFavoritePokemon(pokemon: Pokemon, isFavorite: Boolean) =
         repository.setFavoritePokemon(pokemon, isFavorite)

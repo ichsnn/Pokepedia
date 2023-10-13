@@ -45,7 +45,6 @@ class DetailActivity : AppCompatActivity() {
 
                 is Resource.Success -> {
                     resource.data?.let { pokemon ->
-
                         binding.favoriteAction.setImageDrawable(setFavoriteIcon(pokemon.isFavorite))
                         binding.progressBar.visibility = View.GONE
                         Glide.with(this).load(pokemon.imageUrl).into(binding.ivPokemonImage)

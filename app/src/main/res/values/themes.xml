@@ -33,5 +33,7 @@
 
     <style name="ToolbarNavigationIcon" parent="Theme.Pokepedia">
         <item name="android:textColorSecondary">@color/md_theme_light_onPrimary</item>
+        <item name="android:editTextColor">@color/md_theme_light_onPrimary</item>
+        <item name="android:textColorHint">@color/md_theme_light_onPrimary</item>
     </style>
 </resources>

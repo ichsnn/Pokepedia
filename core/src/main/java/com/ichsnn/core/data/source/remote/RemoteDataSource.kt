@@ -1,6 +1,5 @@
 package com.ichsnn.core.data.source.remote
 
-import android.util.Log
 import com.ichsnn.core.data.source.remote.network.ApiResponse
 import com.ichsnn.core.data.source.remote.network.ApiService
 import com.ichsnn.core.data.source.remote.response.ListPokemonItemResponse
@@ -10,6 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import retrofit2.HttpException
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -19,8 +19,6 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
         return flow {
             try {
                 val response = apiService.getListPokemon()
-                Log.d("Success", "getListPokemon: $response")
-                Log.d("Success Result", "result: ${response.results}")
                 val dataArray = response.results
                 if (dataArray.isNotEmpty()) {
                     emit(ApiResponse.Success(response.results))
@@ -38,6 +36,10 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
             try {
                 val pokemon = apiService.getPokemon(id)
                 emit(ApiResponse.Success(pokemon))
+            } catch (e: HttpException) {
+                if (e.code() == 404) {
+                    emit(ApiResponse.Error("Pokemon Not Found!"))
+                }
             } catch (e: Exception) {
                 emit(ApiResponse.Error(e.toString()))
             }

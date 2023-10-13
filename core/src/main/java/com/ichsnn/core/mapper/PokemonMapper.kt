@@ -5,24 +5,26 @@ import com.ichsnn.core.data.source.remote.response.PokemonResponse
 import com.ichsnn.core.domain.model.Pokemon
 import javax.inject.Inject
 
-open class PokemonMapper @Inject constructor() : Mapper<PokemonEntity, Pokemon, PokemonResponse> {
-    override fun mapEntityToDomain(type: PokemonEntity): Pokemon {
+open class PokemonMapper @Inject constructor() : Mapper<PokemonEntity?, Pokemon, PokemonResponse> {
+    override fun mapEntityToDomain(type: PokemonEntity?): Pokemon {
         return Pokemon(
-            id = type.pokemonId,
-            name = type.name,
-            imageUrl = type.imageUrl,
-            description = type.description,
-            isFavorite = type.isFavorite
+            id = type?.pokemonId ?: 0,
+            name = type?.name ?: "",
+            imageUrl = type?.imageUrl ?: "",
+            description = type?.description ?: "",
+            isFavorite = type?.isFavorite ?: false,
+            isSearched = type?.isSearched ?: false
         )
     }
 
     override fun mapDomainToEntity(type: Pokemon): PokemonEntity {
         return PokemonEntity(
-            type.id,
+            pokemonId = type.id,
             name = type.name,
             imageUrl = type.imageUrl,
             description = type.description,
-            isFavorite = type.isFavorite
+            isFavorite = type.isFavorite,
+            isSearched = type.isSearched
         )
     }
 
@@ -32,7 +34,8 @@ open class PokemonMapper @Inject constructor() : Mapper<PokemonEntity, Pokemon, 
             name = type.name,
             imageUrl = type.sprites.frontDefault.toString(),
             description = "",
-            isFavorite = false
+            isFavorite = false,
+            isSearched = false
         )
     }
 
