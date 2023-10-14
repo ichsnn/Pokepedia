@@ -62,5 +62,8 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
     // glide
     implementation(libs.glide)
+    // SQLCipher
+    implementation(libs.android.database.sqlcipher)
+    implementation(libs.androidx.sqlite.ktx)
 
 }
