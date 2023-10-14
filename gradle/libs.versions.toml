@@ -10,6 +10,7 @@ glide = "4.14.2"
 junit = "4.13.2"
 constraintlayout = "2.1.4"
 kotlinxCoroutines = "1.7.3"
+leakcanaryAndroid = "2.10"
 lifecycle = "2.6.2"
 material = "1.9.0"
 androidGradlePlugin = "8.1.1"
@@ -36,6 +37,7 @@ androidx-sqlite-ktx = { module = "androidx.sqlite:sqlite-ktx", version.ref = "sq
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 junit = { module = "junit:junit", version.ref = "junit" }
 androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
+leakcanary-android = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakcanaryAndroid" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
 # coroutines
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
