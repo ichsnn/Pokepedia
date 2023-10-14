@@ -19,3 +19,9 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+-keep class dagger.** { *; }
+-keep class com.ichsnn.pokepedia.di.FavoriteModuleDependencies { *; }
+-keep class com.ichsnn.core.domain.usecase.PokemonUseCase { *; }
+-keep class com.ichsnn.pokepedia.favorite.** { *; }
+-keep class androidx.viewbinding.ViewBinding { *; }
