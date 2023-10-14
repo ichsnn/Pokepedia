@@ -67,4 +67,6 @@ dependencies {
     kapt(libs.hilt.android.compiler)
     // glide
     implementation(libs.glide)
+    // leak canary
+    debugImplementation(libs.leakcanary.android)
 }

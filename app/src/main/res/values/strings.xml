@@ -4,8 +4,6 @@
     <string name="home">Home</string>
     <string name="navigation_drawer_open">open</string>
     <string name="navigation_drawer_close">close</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="pokemon_image">pokemon image</string>
     <string name="error_something_wrong">Error: Something wrong!</string>
     <string name="back">back</string>
